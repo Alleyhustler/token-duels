@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="https://64.media.tumblr.com/22cfe8825a40d6c3b9a657881f7bc27d/3d719954a78e3bcc-0b/s75x75_c1/1bdb189fed838800ef7aff63a63f97050098c18e.gifv"> 
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Megrim%7CLato" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&amp;family=Press+Start+2P&amp;family=Silkscreen:wght@400;700&amp;family=VT323&amp;display=swap" rel="stylesheet">
+
+
+<title>Token Duel</title>
+
+<style>
+
+  @font-face {
+    font-family: 'Docallisme On Street';
+    src: url('docallismeonstreet.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Optional: improves loading performance */
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;}
+
+/* Background animation */
+@keyframes star {
+0% {
+background-position: 0 0;}
+100% {
+background-position: 0 400px;}}
+
+/* Basics */
+body {
+margin: 0;
+padding:10px;
+padding-top:60px;
+display: flex;
+justify-content: center;
+align-items: center;
+line-height:12px;
+min-height: 100vh;       
+font-family: 'lato', calibri, sans-serif;
+color: #666;
+font-size: 9px;
+letter-spacing: 1px;
+text-shadow: 0px 0px 1px #bbb;
+background: #000 url(https://64.media.tumblr.com/6448f4fdd64badae8b1702443525f3c3/26751645c002e373-6f/s400x600/97116ebd8788b218e0e19e867e0463d58325e5ea.gifv) fixed;
+animation: star 7s linear infinite;}
+  
+body::before {
+content: "";
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: repeating-linear-gradient(
+to bottom,
+rgba(0,0,0,0.03),
+rgba(0,0,0,0.03) 1px,
+transparent 1px,
+transparent 2px
+);
+pointer-events: none;
+z-index: 1000;
+}
+  
+u {text-decoration:underline;font-weight:bold;font-family:'ms gothic';font-style:italic;}
+b {color:#666;font-family:'ms gothic';}
+i {color:#aaa;}
+
+/* Links */
+a:link,a:visited,a:active { color: #222; text-decoration: none; }
+a:hover { color: #888; }
+  
+.link-list {
+display: block;
+width: max-content;
+background:#fff;padding:4px;
+border-radius:5px;}
+
+.menu {
+display: block;
+border: 0px solid #ccc;
+overflow: hidden;
+transition: border-color 0.3s;
+margin-bottom: 2px;
+text-decoration: none;
+font-size: 0;      
+line-height: 0;    
+white-space: nowrap;}
+
+.menu span {
+display: inline-block;
+height: 13px;      
+line-height: 13px; 
+font-size: 8px;    
+font-family:'silkscreen';
+vertical-align: top;
+box-sizing: border-box;}
+
+.section-start {
+width: 3px;
+background:#ccc;
+margin-right:2px;}
+  
+.section-end {
+width: 3px;
+background:#ccc;
+margin-left:3px;}
+
+.section-arrow {
+background: #eee;
+width: 15px;
+text-align: center;
+margin-right:1px;}
+
+.section-arrow img {
+vertical-align: middle;}
+
+.section-num {
+background: #444;
+color: #fff;
+width: 35px;
+transition: background 0.3s;
+text-align: center;}
+
+.section-text {
+background: #eee;
+color: #333;
+width: 68px;
+overflow: hidden;
+text-overflow: ellipsis;
+transition: background 0.3s;
+text-align:center;}
+
+.menu:hover .section-num {
+background: #ccc;
+color:#000;}
+
+.menu:hover .section-end {
+background-color: #333;}
+
+.menu:hover .section-text {
+color: #aaa;}
+  
+
+  
+/* Scrollbar */
+::-webkit-scrollbar-thumb {
+background-color: #000; 
+border:1px solid #fff;
+border-radius: 3px;}
+::-webkit-scrollbar { width: 5px; height: 0px; background: transparent; }
+  
+  
+  
+/* Special codes */ 
+
+#statuscafe {
+border-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAA3UlEQVRYR+2YUQ6FIAwE8f6H1pgIIgTouqBQs+8XaYdhMT624OS3OeEMPaA7uUiqJzXpAlwWNAdjF0nVedKMalCIB1UHAY2FkWeZ2EL1keZQIYYwy3qTpTX4NmC+tmY/16Bfm4TMlowKFDxwRVEujc7e8mZW70YFCmZTRklR8LQkisoo7K3+oIwOkJiUkFEZPQ3o9TQgB9XDFGvP/jj5z/eojD7MK7z1s8z+93/910aht8wKNyU0qDXRGrfOzrBrRwvEGn8dtAZQMzDtanx5UMsMctlrbXf3+AnhAvQAX95QKwe116UAAAAASUVORK5CYII=') 14 /  14px / 0 round;
+border-width:  14px;
+border-style:  solid;}
+  
+#statuscafe-username {
+margin-bottom: .5em;}
+  
+#statuscafe-content {
+max-width:110px;
+font:9px 'ms gothic', 'lato', verdana;
+font-style:normal;
+color:#777;}
+  
+blockquote {margin-left: 27px;
+margin-right: 27px;text-align: justify;}
+    
+iframe {border: 0;}
+  
+.cat {width:80px;height:80px;border:1px solid #ddd;padding:4px;}
+  
+.blogger-labels {display: none;}
+  
+.center {text-align:center;}
+  
+.kofi {height:40px;float:left;opacity:1;}
+  
+.bigtitle, .titlebig {
+font:9px 'orbitron';
+color:#444;
+text-transform: uppercase;
+letter-spacing:4px;
+background: linear-gradient(145deg, #f5f5f5, #dcdcdc);
+padding: 1px 2px;
+border-radius: 5px;
+margin-bottom: 4px;
+box-shadow: inset 0 -1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.05);}
+  
+.shyemenu a {
+display:inline-block;
+background:transparent;
+text-align:center;
+margin:0px 0px;
+margin-bottom:4px;margin-right:8px;margin-left:8px;
+padding:1px;border-bottom:1px solid #F9D1B4;
+padding-left:1px;padding-bottom:5px;}
+
+.shyemenu a:hover {
+border-bottom:0px solid #ADDAA1;
+color:#444;}
+ 
+  
+  
+/* Images */  
+
+.profile { border:0;
+-webkit-filter: grayscale(100%);
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+ 
+.profile:hover{
+-webkit-filter: grayscale(0%);
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+  
+.toy { border:0;
+-webkit-filter: grayscale(100%);
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+ 
+.toy:hover{
+-webkit-filter: grayscale(0%);
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+  
+.c { border:0;
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+ 
+.c:hover{
+-webkit-filter: grayscale(0%);
+-webkit-transition-duration: 0.8s;
+-moz-transition-duration: 0.8s;
+-o-transition-duration: 0.8s;
+-ms-transition-duration: 0.8s;}
+
+  
+    
+/* Other Image codes */ 
+
+.galleryimg {
+background: #fff;
+padding: 4px;
+margin: 2px;
+border: 1px solid #ddd;}
+  
+.galleryimg2 {
+padding: 0px;
+margin: 2px;
+width: 99px;
+height: 56px;}
+
+.blogimage {
+background: #fff;
+border: 1px solid #DEEEC9;
+padding: 4px;
+margin-right: 2px;}
+
+.b, .affi {
+padding: 0px;
+width: 78px;}
+  
+.bunny {
+padding: 0px;
+width: 88px;}
+  
+.but {
+margin-right: 10px;}
+  
+.toy {max-height:30px;}
+
+.log-image {
+width:220px;
+text-align:center;
+background: #fff;
+padding: 4px;
+margin: 2px;
+border: 1px solid #ddd;}
+  
+.kofi {opacity:1;-webkit-filter: grayscale(100%);}
+
+  
+/* Dividers */ 
+
+.divider-hor {
+height: 0px;
+border-bottom: 1px dashed #ABEBA5;
+margin-top: 12px;
+margin-bottom: 6px;}
+
+.line {
+height: 0px;
+border-bottom: 1px dashed #ddd;
+margin-top: 4px;
+margin-bottom: 4px;}
+
+
+.container {
+width: 95%;
+margin: 0 auto;
+width: 845px; 
+background: #e6e6e6;
+box-shadow: 0 12px 24px rgba(0,0,0,0.2), inset 0 -4px 10px rgba(255,255,255,0.5);
+overflow: hidden;
+border-radius: 5px;
+border:1px solid #999;
+}
+  
+  
+
+  
+.layout {
+display: flex;
+gap: 5px;
+justify-content: space-between;}
+
+
+
+
+/* Top sect */
+.sitename {
+width: 100%;
+text-align: center;
+font-family: 'doto', sans-serif; 
+font-size: 55px;
+letter-spacing: 3px;
+    font-family: 'Docallisme On Street', 'doto', sans-serif;
+
+color: #333;
+padding: 8px 15px;
+border-bottom: 2px solid #ccc;
+text-shadow: 5px 5px 5px #fff;
+background:url(../files.catbox.moe/xl6brc.gif) no-repeat center;
+box-shadow: inset 0 0 35px rgba(122, 122, 122, 0.4);}  
+  
+.toplinks {
+float: right;
+height:20px;
+padding-top:5px;
+padding-right:10px;}  
+  
+.toptitle {
+float: left;
+font-family: 'doto', sans-serif; 
+font-size: 20px;
+letter-spacing: 3px;
+color: #333;
+height:20px;
+padding-top:15px;
+padding-left:10px;}  
+  
+  
+/* Title decor */
+.orb {
+width: 7px;
+height: 7px;
+border-radius: 50%;
+background: #444;
+box-shadow: 0 0 8px #444;
+display: inline-block;
+margin-right: 0px;
+animation: blink 1s infinite alternate;}
+  
+.orb2 {
+width: 7px;
+height: 7px;
+border-radius: 50%;
+background: #444;
+box-shadow: 0 0 8px #444;
+display: inline-block;
+margin-right: 4px;}
+
+@keyframes blink {
+  0% { opacity: 0.2; box-shadow: 0 0 4px #444; }
+  50% { opacity: 1; box-shadow: 0 0 12px #444; }
+  100% { opacity: 0.2; box-shadow: 0 0 4px #444; }
+}
+
+/* Navigation Bar */
+.navigation {
+display: flex;
+justify-content: center;
+gap: 5px;
+  flex-wrap: wrap;
+
+padding: 5px 0;
+background: linear-gradient(145deg, #dcdcdc, #dedede);
+border-bottom: 2px solid #ccc;
+box-shadow: inset 0 2px 5px rgba(255,255,255,0.4);}
+  
+.navigation a {
+display: inline-block;
+padding: 2px 12px;
+letter-spacing:1px;
+font:8px 'silkscreen';
+color:#444;
+border-radius: 5px;
+border: 1px solid #ccc;
+background: linear-gradient(145deg, #ffffff, #dcdcdc);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1), inset 0 -2px 4px rgba(255,255,255,0.5);
+cursor: pointer;
+transition: all 0.3s ease;}
+  
+.navigation a:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.12), inset 0 -2px 4px rgba(255,255,255,0.6);}
+
+/* Left Sidebar */
+.sidebar {
+flex: 0 0 170px; 
+background: linear-gradient(145deg, #f7f7f7, #e0e0e0);
+border-radius: 5px;
+font-size: 9px;
+border:1px solid #ccc;
+padding: 5px;
+margin-top:4px;
+margin-left:4px;
+box-shadow: inset 0 -2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);}
+
+/* Main */
+.main-area {
+display: flex;
+flex-direction: column;
+gap: 5px;
+flex: 0 0 300px;}
+  
+.banner-img {
+width: 100%;      
+background: #f5f5f5 url(../files.catbox.moe/zl5cwl.gif) bottom;
+margin-top:5px;
+border-bottom: 2px solid #ccc;
+opacity:0.8;
+border-radius:5px;
+background-size: cover;}
+  
+.main {
+flex: 1;
+background:linear-gradient(145deg, #f7f7f7, #e0e0e0);
+border-radius: 5px;
+border:1px solid #ccc;
+padding: 5px;
+box-shadow: inset 0 -2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
+margin-top:4px;}
+
+/* Right Sidebar */
+.right-sidebar {
+flex: 0 0 150px; 
+background: linear-gradient(145deg, #f7f7f7, #e0e0e0);
+border-radius: 5px;
+border: 1px solid #ccc;
+padding: 5px;
+margin-top:4px;
+box-shadow: inset 0 -2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);}
+
+/* Read more buttons in main section */
+.main-button a {
+display: inline-block;
+margin-top: 5px;
+padding: 1px 10px;
+font-weight: bold;
+letter-spacing:2px;
+font:9px ms gothic, 'silkscreen';
+color:#444;
+border-radius: 5px;
+border: 1px solid #ccc;
+background: linear-gradient(145deg, #ffffff, #dcdcdc);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1), inset 0 -2px 4px rgba(255,255,255,0.5);
+cursor: pointer;
+transition: all 0.3s ease;
+text-align: center;}
+  
+.main-button a:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.12), inset 0 -2px 4px rgba(255,255,255,0.6);}
+.main-button img {
+  vertical-align: middle;
+  margin-right: 3px;}
+
+/* Boxes */
+.box {
+background:linear-gradient(145deg, #fff, #eee);
+border-radius: 5px;
+padding: 5px;
+margin-bottom: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.08), inset 0 -2px 4px rgba(255,255,255,0.6);
+transition: transform 0.3s ease;}
+.box:hover { transform: translateY(-2px); }
+
+/* Titles */
+.title {
+font:9px 'orbitron';
+color:#444;
+text-transform: uppercase;
+letter-spacing:4px;
+background: linear-gradient(145deg, #f5f5f5, #dcdcdc);
+padding: 1px 2px;
+border-radius: 5px;
+margin-bottom: 4px;
+box-shadow: inset 0 -1px 2px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.05);}
+
+/* Footer */
+.footer {
+background: linear-gradient(145deg, #ffffff, #dcdcdc);
+text-align: center;
+font:9px ms gothic, calibri;
+padding: 5px;
+border-top: 2px solid #ccc;
+text-shadow: 0 1px 2px rgba(0,0,0,0.1);}
+  
+  
+
+
+
+</style>
+<link rel="me" href="https://www.blogger.com/profile/05866719268734977749" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+
+<script type="text/javascript" language="javascript">
+  // Supply ads personalization default for EEA readers
+  // See https://www.blogger.com/go/adspersonalization
+  adsbygoogle = window.adsbygoogle || [];
+  if (typeof adsbygoogle.requestNonPersonalizedAds === 'undefined') {
+    adsbygoogle.requestNonPersonalizedAds = 1;
+  }
+</script>
+
+</head>
+  
+<body>
+<div class="container">
+  
+  
+<span class="toptitle"></span>
+<span class="toplinks">
+<a href="index.html" title="refresh site"><img src="https://64.media.tumblr.com/234f47e58cccc06a0f05fe3766344569/d54f66bdc26d3a4f-01/s75x75_c1/fbfc716cb1354404cd5decb91bdcd720d05b9253.gifv" alt="x" style="margin-left:5px;"></a>
+</span>
+
+
+<div class="sitename"> 
+<br>
+TOKEN DUEL  <img src="RugCats Live LOGO (1).png" height="90" alt="alien" class="c"> ARENA<br>
+<span style="font:8px 'silkscreen';color:#666;font-weight:bold;">Bet on tokens. Winners claim the pot. Losers fuel challenges.</span><br>
+</div>
+  
+     
+<div class="navigation">
+<a href="index.html">arena</a>
+<a href="x.com">Twitter</a>
+     
+  
+<div class="layout">
+
+<div class="sidebar">
+  
+<div class="box">
+<div class="title">  
+<span class="orb2"></span> $DUEL token</div>
+       
+<b>Ticker: $DUEL</b> <i>Network: Solana</i> <br>      
+Token Duel turns market prediction into bloodsport — a decentralized arena where you don't trade coins, you bet on their survival.<br><br> 
+<img src="https://blogger.googleusercontent.com/img/proxy/AVvXsEjglpQ3Ku8WYEn52vM_59IbBAILQnNjt-9NqiamXHM6Mcjm1iWcseEkiTCc0TSbKxkEb8_PbDitS6ShBVHz8wwLziR6KIQxICPFl-PZ6T5bcg5WQTmPcQj90DMDE5SAoWlL5lO7ipK28-QR8uqGqmTOnVAKFUdOIg=s0-d" alt="heart"> 
+Every chart is a battlefield. Every token is a fighter. The chain doesn't lie. Only one side walks away richer. <img src="https://blogger.googleusercontent.com/img/proxy/AVvXsEjglpQ3Ku8WYEn52vM_59IbBAILQnNjt-9NqiamXHM6Mcjm1iWcseEkiTCc0TSbKxkEb8_PbDitS6ShBVHz8wwLziR6KIQxICPFl-PZ6T5bcg5WQTmPcQj90DMDE5SAoWlL5lO7ipK28-QR8uqGqmTOnVAKFUdOIg=s0-d" alt="heart"> 
+              
+<div class="line"></div>
+
+<img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> 
+<a href="#" target="_blank" class="navi">whitepaper</a> &nbsp;
+<img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> 
+<a href="#" target="_blank">telegram</a> &nbsp;
+<img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <a href="#" target="_blank">dex</a><br>
+          
+          
+<div class="line"></div>
+  
+<i><img src="https://64.media.tumblr.com/c5caf5a79509810cec1b08155b5a01ab/b2dee8f17f3df1a3-da/s75x75_c1/63318c13bc19cfd859f43e3137d3a16fabd7e66f.gifv" alt="x"> <span id="song">Live Arena Feed</span></i>
+
+</div>
+  
+  
+<div class="box">
+<div class="title"> <span class="orb"></span> active duels</div>
+<p> <img class="c" src="https://64.media.tumblr.com/5748ab6d10c7bf48012a7802da6a9737/a7f72053e253a63e-0a/s75x75_c1/b1e9319ecff74192a6796a49421fb1ae2b36ca3e.gifv" alt="x"> 
+<b>DOG vs CAT</b> 2h remaining<br>
+<img class="c" src="https://64.media.tumblr.com/ff654a0bc9960b4c620d6e44d474b141/8a6a930d5c4796da-55/s75x75_c1/7755c500edd327a23fae28db8a6c0135c873b219.gifv" alt="x"> 
+<b>BONK vs POPCAT</b> 24h<br>
+<img src="https://64.media.tumblr.com/85069984799191ef52f2c49d53843b87/3551a213d01ada8a-17/s75x75_c1/2298b03fcf75aac8aef53409b0f042f387c6dae4.pnj" alt="x"> 
+<b>SOL vs ETH</b> 7d<br>
+<img class="c" src="https://64.media.tumblr.com/19c5bd8e344a9503b66f0b85bd2db0ff/8a6a930d5c4796da-6b/s75x75_c1/499aad6f6cb2bd879564f4d9b56c30ab9cd79ca6.gifv" alt="x" height="9">   
+  <b>PEPE vs WOJAK</b> 1h<br>
+<img class="c" src="https://64.media.tumblr.com/2299f89657bae4d6493d89bfd664ebe5/817561ba9773c40d-50/s75x75_c1/848dfb77e6b0d0edde0c619f530c6552c541672d.pnj" alt="x" height="9">   
+  <b>USDC vs USDT</b> 24h<br>
+<img class="c" src="https://64.media.tumblr.com/45daadf76d6df04270a3f147994bce5c/8a6a930d5c4796da-03/s75x75_c1/fb3c344f81c7875f6a2c387448fb538c07bb336a.gifv" alt="x"> 
+<b>LINK vs AAVE</b> 12h<br>
+<img class="c" src="https://64.media.tumblr.com/8ab37edd1ad4268d43f4734941a4dc74/8a6a930d5c4796da-6f/s75x75_c1/c93ad795e24c1783311b2cf6be17a01bcfe19f9f.gifv" alt="x"> 
+<b>MATIC vs ADA</b> 48h<br>
+<img class="c" src="https://64.media.tumblr.com/27a1bed1b6d7bd94b07a2fd00ea454e7/1a5fa5080373adb0-46/s75x75_c1/1a769397a7efd63bf38ed4cb25b7ebcce1b3a902.gifv" alt="x"> 
+<b>BTC vs ETH</b> 7d<br>
+<img class="c" src="https://64.media.tumblr.com/e88ccd570e8626d384041ee371a407bb/1a5fa5080373adb0-a1/s75x75_c1/81dc5ccb8afc6d7b32ddb04045880bbbd461e27b.gifv" alt="x"> 
+<b>SHIB vs FLOKI</b> 24h
+</p>
+</div>
+      
+  
+<div class="box">
+<div class="title"> <span class="orb2"></span> recent winners</div>
+<p>
+          
+<script>
+function random_imglink() {
+var myimages = new Array()
+myimages[1] = "https://64.media.tumblr.com/ef3232ac5cd73472399d67e9ed3455d0/7011d51e6ad90d94-79/s1280x1920/55315dec7aa27d7e03d9a6f806a42a227c2243c2.pnj"
+myimages[2] = "https://64.media.tumblr.com/0f512dfae49477a7061c9242e4078738/e1c2312987a6974e-cc/s1280x1920/af0b8289757f356bcc91c7b5f50ae530405321a1.pnj"
+myimages[3] = "https://64.media.tumblr.com/397affcd05b785e896b6bb6848cbeefc/523f9b495c5d902f-f9/s640x960/b3a70e08158215c54d504797e219d18b64b6e2d0.pnj"
+
+var imagelinks = new Array()
+imagelinks[1] = "#"
+imagelinks[2] = "#"
+imagelinks[3] = "#"
+
+var ry = Math.floor(Math.random() * myimages.length)
+if (ry == 0)
+ry = 1
+document.write('<a href=' + '"' + imagelinks[ry] + '"' + '><img class="galleryimg" src="' + myimages[ry] + '" border=0 width=150></a>')
+}
+random_imglink()
+</script>
+
+</p>
+</div>
+      
+<div class="box">
+<div class="title"> <span class="orb"></span> quick duel</div>
+Create your own token matchup:<br>
+      
+      
+<form method="post" action="#">
+<div style="background-color:#FAFAFA;padding:2px;width:150px;font-family:'lato',verdana;font-size:9px;color:#3B3B3B;box-shadow: 0px 0px 0px #888;">
+<div style="padding:2px 0px 4px 2px;"><strong>Token A:</strong></div>
+<input type="text" name="tokenA" style="width:140px;font-size:8px;margin-bottom:4px;">
+<div style="padding:2px 0px 4px 2px;"><strong>Token B:</strong></div>
+<input type="text" name="tokenB" style="width:140px;font-size:8px;margin-bottom:4px;">
+<div style="padding:2px 0px 4px 2px;"><strong>Duration:</strong></div>
+<select name="duration" style="width:140px;font-size:8px;margin-bottom:4px;">
+<option value="1h">1 Hour</option>
+<option value="24h">24 Hours</option>
+<option value="7d">7 Days</option>
+</select>
+<div class="center" style="padding:3px;"><input type="submit" value=" Create Duel "></div>
+</div></form>
+      
+</div>
+      
+  
+<div class="box">
+<div class="title"> <span class="orb2"></span> social pot</div>
+<img src="../64.media.tumblr.com/163c178ddd8fe1b62756710793c6bde2/b2dee8f17f3df1a3-5f/s75x75_c1/tumblr_163c178ddd8fe1b62756710793c6bde2_ff7ea63f_75.png" alt="x"> Current Pot: 10,450 $DUEL<br>
+<img src="../64.media.tumblr.com/163c178ddd8fe1b62756710793c6bde2/b2dee8f17f3df1a3-5f/s75x75_c1/tumblr_163c178ddd8fe1b62756710793c6bde2_ff7ea63f_75.png" alt="x"> Next Community Challenge<br>
+  <img src="../64.media.tumblr.com/163c178ddd8fe1b62756710793c6bde2/b2dee8f17f3df1a3-5f/s75x75_c1/tumblr_163c178ddd8fe1b62756710793c6bde2_ff7ea63f_75.png" alt="x"> Vote on Next Duel Type<br>
+
+<img src="../64.media.tumblr.com/163c178ddd8fe1b62756710793c6bde2/b2dee8f17f3df1a3-5f/s75x75_c1/tumblr_163c178ddd8fe1b62756710793c6bde2_ff7ea63f_75.png" alt="x"> Meme Bounty: 500 $DUEL<br>
+<img src="../64.media.tumblr.com/163c178ddd8fe1b62756710793c6bde2/b2dee8f17f3df1a3-5f/s75x75_c1/tumblr_163c178ddd8fe1b62756710793c6bde2_ff7ea63f_75.png" alt="x"> Callout Duel Pool<br>
+  
+</div>
+</div>
+
+  
+  
+  
+<!-- Main Area -->
+<div class="main-area">
+<div class="main">
+
+<div class="box">
+<div class="title">
+<span class="orb2"></span>  
+🧬 LORE PUMPFUN</div>
+<div style="clear:both;"></div><img src="https://64.media.tumblr.com/182bd899f70656405b44a538efc42d39/7a1217933b293a85-d8/s75x75_c1/8bf1fc1e7a3695a837d408166230df0e7e70533f.gifv" alt="x" align="left" style="margin-right:5px;"> Every chart is a battlefield.<br>
+Every token is a fighter.<br><br>
+
+Token Duel turns market prediction into bloodsport — a decentralized arena where you don't trade coins, you bet on their survival.<br><br>
+
+Each round, you choose two tokens to face off. You stake your $DUEL to back your champion. If your pick wins (by performance or market cap gain), you share the pot. If not — your stake goes to the Social Pot, fueling community challenges, wagers, and future duels.<br><br>
+
+The chain doesn't lie. Only one side walks away richer.<br><br>
+
+<div style="clear:both; padding-bottom:0.25em"></div></div>
+
+          
+        
+
+        
+<div class="box">
+<div class="title"> <span class="orb"></span> ⚙️ HOW IT WORKS</div>
+<br>
+<blockquote>
+  <img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <b>1️⃣ Create Duel:</b> Choose tokens A and B, set conditions, and deposit a base pot.<br><br>
+  
+  <img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <b>2️⃣ Join Duel:</b> Players stake $DUEL to back a side.<br><br>
+  
+  
+  <img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <b>3️⃣ Timer Runs:</b> During the duel, participants can see current stats and market shifts.<br><br>
+  
+  
+<img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <b>4️⃣ Resolution:</b> At end, contract checks which token won per metric → distributes winnings.<br><br>
+
+<img class="c" src="https://64.media.tumblr.com/0e7c01b351e6b327addc2a9c83cbfe5f/27062768058b892f-d5/s75x75_c1/30af335725a8bf606d702edf9d3a28bcbe4036f0.gifv" alt="x"> <b>5️⃣ Social Pot Allocation:</b> 10% from losing side flows into communal fund for special duels.<br><br>
+                
+</blockquote>
+</div>
+                
+
+</div>
+</div>
+
+  
+  
+  
+  
+<!-- Right Sidebar -->
+<div class="right-sidebar">
+<div class="box">
+<div class="title"> <span class="orb"></span> arena status</div>
+<div id="statuscafe"><div id="statuscafe-username"></div><div id="statuscafe-content"></div></div><script src="../status.cafe/current-status7cc2.js?name=itinerae" defer></script>
+        
+</div>
+      
+      
+<div class="box">
+<div class="title"> <span class="orb2"></span> quick actions</div>
+  
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">001.</span>
+<span class="section-text">create duel</span>
+<span class="section-end"></span>
+</a>
+  
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">002.</span>
+<span class="section-text">active duels</span>
+<span class="section-end"></span>
+</a>
+         
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">003.</span>
+<span class="section-text">leaderboard</span>
+<span class="section-end"></span>
+</a>
+         
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">004.</span>
+<span class="section-text">social pot</span>
+<span class="section-end"></span>
+</a>
+         
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">005.</span>
+<span class="section-text">my bets</span>
+<span class="section-end"></span>
+</a>
+         
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">006.</span>
+<span class="section-text">buy $DUEL</span>
+<span class="section-end"></span>
+</a>
+      
+<a href="#" class="menu">
+<span class="section-arrow"><img src="https://64.media.tumblr.com/d747b3bd7b47634263feb6bcb61dee77/f3067bc540296c39-65/s75x75_c1/4d0ce93ecc21664732b3427fd6eec0db81eaa6b3.gifv" alt="arrow"></span>
+<span class="section-num">007.</span>
+<span class="section-text">docs</span>
+<span class="section-end"></span>
+</a>
+        
+</div>
+    
+  
+  
+<div class="box">
+<div class="title"> <span class="orb2"></span> top duelists</div>
+<div class="center">
+<span>🏆 Current Champions</span><br>
+1. 0x3f...c8a2 - 24 wins<br>
+2. 0x7d...e9b1 - 18 wins<br>
+3. 0x2a...f4c7 - 15 wins<br>
+4. 0x9b...d3e5 - 12 wins<br>
+5. 0x5c...a8f9 - 10 wins
+</div>
+</div>
+    
+  
+<div class="box">
+<div class="title"> <span class="orb"></span> community chat</div>
+<iframe src="https://www5.cbox.ws/box/?boxid=948755&amp;boxtag=yqqqFi" width="126" height="253"></iframe>	
+</div>
+  
+  
+<div class="box">
+<div class="title"> <span class="orb2"></span> project info</div>
+<p> <b>Token:</b> $DUEL<br>
+<b>Network:</b> Solana<br>
+<b>Purpose:</b> Prediction and rivalry game where holders bet on token performance.<br>
+<b>Utility:</b> Duel staking, reward distribution, Social Pot governance.<br>
+<b>Core Concept:</b> Make the market your arena.<br><br>
+<img src="https://64.media.tumblr.com/236a47f6f61097473b44aaf650951649/d7715e026a20df87-a9/s75x75_c1/b558b31b9d2112eddabc8dc9d73c562d086b2c1f.gifv" alt="x"> <b>Total Duels</b> 1,247 <br>
+<img src="https://64.media.tumblr.com/236a47f6f61097473b44aaf650951649/d7715e026a20df87-a9/s75x75_c1/b558b31b9d2112eddabc8dc9d73c562d086b2c1f.gifv" alt="x">  <b>Total Volume</b> 450K $DUEL </p>
+      
+</div>
+  
+  
+<div class="box">
+<div class="title"> <span class="orb"></span> community ethos</div>
+  <blockquote>
+  <i>"We don't cope. We compete.<br><br>
+  Every chart is a sword fight.<br>
+  Every bag has a rival.<br><br>
+  Token Duel is the end of passive holding — if you believe in your token, put it in the arena and let it fight.<br><br>
+  Win glory. Or fund the next challenger."</i>
+  </blockquote>
+</div>
+  
+  
+</div>
+
+</div><!-- layout ends -->
+
+<div class="footer">
+Token Duel - The decentralized prediction arena. Bet on tokens, not just trade them.
+</div>
+  
+</div><!-- container ends -->
+    
+</body>
+</html>
